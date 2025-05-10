@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0f0f0f;
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 40px;
+    padding: 20px;
+}
+
+.text-container {
+    text-align: center;
+}
+
+/* Fireship Style */
+.fireship-style {
+    width: 100%;
+    padding: 40px;
+    background: linear-gradient(145deg, #121212, #1a1a1a);
+    border-radius: 8px;
+    max-width: 800px;
+}
+
+.fireship-text {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #ff4500, #ff8700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.fireship-subtext {
+    font-size: 1.8rem;
+    color: #e0e0e0;
+    font-weight: 600;
+}
+
+.dot {
+    display: inline-block;
+    opacity: 0;
+    animation: dotFade 1.4s infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotFade {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* How Money Works Style */
+.money-style {
+    width: 100%;
+    padding: 40px;
+    background: linear-gradient(135deg, #1a237e, #283593);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+}
+
+.money-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.money-subtext {
+    font-size: 1.8rem;
+    color: #b2ebf2;
+    font-weight: 600;
+}
+
+.animated-dots {
+    display: inline-block;
+    position: relative;
+    width: 10px;
+    overflow: hidden;
+    animation: typingDots 1.2s infinite;
+}
+
+@keyframes typingDots {
+    0% { width: 0; }
+    50% { width: 30px; }
+    100% { width: 0; }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .fireship-text, .money-text {
+        font-size: 2rem;
+    }
+
+    .fireship-subtext, .money-subtext {
+        font-size: 1.5rem;
+    }
+} 

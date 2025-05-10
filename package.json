@@ -1,0 +1,12 @@
+{
+  "name": "editing-in-progress",
+  "version": "1.0.0",
+  "description": "A website that showcases different 'Editing In Progress' styles",
+  "main": "index.html",
+  "scripts": {
+    "dev": "serve"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+} 
