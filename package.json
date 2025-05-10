@@ -4,9 +4,14 @@
   "description": "A website that showcases different 'Editing In Progress' styles",
   "main": "index.html",
   "scripts": {
-    "dev": "serve"
+    "dev": "serve",
+    "build": "mkdir -p dist && cp index.html styles.css script.js dist/",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "serve": "^14.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
   }
 } 
