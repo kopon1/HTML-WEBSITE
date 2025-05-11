@@ -18,6 +18,7 @@
             background-color: #0f0f0f;
             color: white;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
@@ -32,6 +33,7 @@
 
         .text-container {
             text-align: center;
+            position: relative;
         }
 
         /* Fireship Style */
@@ -41,6 +43,26 @@
             background: linear-gradient(145deg, #121212, #1a1a1a);
             border-radius: 8px;
             max-width: 800px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .fireship-style::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 69, 0, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .fireship-style:hover::before {
+            opacity: 1;
         }
 
         .fireship-text {
@@ -51,12 +73,74 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .fireship-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, #ff4500, #ff8700);
+            transition: width 0.5s ease;
+        }
+
+        .fireship-style:hover .fireship-text::after {
+            width: 100%;
         }
 
         .fireship-subtext {
             font-size: 1.8rem;
             color: #e0e0e0;
             font-weight: 600;
+            position: relative;
+        }
+
+        .checkmark {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        .checkmark::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #ff4500;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .checkmark::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 60%;
+            height: 60%;
+            background-color: #ff4500;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .fireship-style:hover .checkmark::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .dot {
@@ -127,14 +211,35 @@
                 font-size: 1.5rem;
             }
         }
+
+        /* Particle effects */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: rgba(255, 69, 0, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="fireship-style">
+            <div class="particles" id="particles"></div>
             <div class="text-container">
                 <h1 class="fireship-text">Fireship style</h1>
-                <h2 class="fireship-subtext">Editing In Progress<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></h2>
+                <h2 class="fireship-subtext">Finished Editing<span class="checkmark"></span></h2>
             </div>
         </div>
         
@@ -183,6 +288,57 @@
                 document.body.style.background = '#0f0f0f';
             }, 3000);
         });
+
+        // Particle animation
+        const particlesContainer = document.getElementById('particles');
+        const fireshipStyle = document.querySelector('.fireship-style');
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random position within the fireship-style element
+            const rect = fireshipStyle.getBoundingClientRect();
+            const x = Math.random() * rect.width;
+            const y = Math.random() * rect.height;
+            
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            
+            // Random size
+            const size = Math.random() * 4 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Random opacity
+            const opacity = Math.random() * 0.5 + 0.3;
+            particle.style.opacity = opacity;
+            
+            particlesContainer.appendChild(particle);
+            
+            // Animate the particle
+            const duration = Math.random() * 3 + 2;
+            const targetX = x + (Math.random() * 100 - 50);
+            const targetY = y + (Math.random() * 100 - 50);
+            
+            particle.animate([
+                { transform: 'translate(0, 0)', opacity: opacity },
+                { transform: `translate(${targetX - x}px, ${targetY - y}px)`, opacity: 0 }
+            ], {
+                duration: duration * 1000,
+                easing: 'ease-out'
+            }).onfinish = () => {
+                particle.remove();
+            };
+        }
+        
+        // Create particles periodically
+        setInterval(createParticle, 300);
+        
+        // Create initial particles
+        for (let i = 0; i < 10; i++) {
+            createParticle();
+        }
     </script>
 </body>
 </html> 
